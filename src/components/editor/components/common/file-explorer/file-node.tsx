@@ -1,4 +1,4 @@
-import { Component, createSignal, Show, splitProps } from "solid-js";
+import { batch, Component, createSignal, Show, splitProps } from "solid-js";
 import { Equal } from "effect";
 import { useRx } from "rx-solid";
 import { Icon } from "~/components/icons";
@@ -46,7 +46,7 @@ export declare namespace FileNode {
   export interface CommonProps {
     readonly depth: number;
     readonly path: string;
-    readonly className?: string;
+    readonly class?: string;
     readonly onClick?: OnClick;
   }
 
@@ -60,7 +60,7 @@ export const FileNode: Component<FileNode.Props> = (props) => {
     "node",
     "depth",
     "path",
-    "className",
+    "class",
     "onClick",
   ]);
   const handle = useWorkspaceHandle();
@@ -68,16 +68,19 @@ export const FileNode: Component<FileNode.Props> = (props) => {
   const [selectedFile, setSelectedFile] = useRx(handle.selectedFile);
   const [showControls, setShowControls] = createSignal(false);
   const rename = useRename();
-  const isEditing = createMemo(
-    () => state()._tag === "Editing" && Equal.equals(state().node, local.node)
-  );
+  const isEditing = createMemo(() => {
+    const stateRes = state();
+    stateRes._tag === "Editing" && Equal.equals(stateRes.node, local.node);
+  });
   const isSelected = () => Equal.equals(selectedFile(), local.node);
 
   const handleClick: FileNode.OnClick = (event, node) => {
-    if (node._tag === "File") {
-      setSelectedFile(node);
-    }
-    props.onClick?.(event, node);
+    batch(() => {
+      if (node._tag === "File") {
+        setSelectedFile(node);
+      }
+      props.onClick?.(event, node);
+    });
   };
 
   return (
@@ -138,7 +141,7 @@ const FileNodeTrigger: ParentComponent<{
 }> = (props) => {
   // Tailwind cannot dynamically generate styles, so we resort to the `style` prop here
   const paddingLeft = 16 + props.depth * 8;
-  const styles = { paddingLeft: `${paddingLeft}px` };
+  const styles = { "padding-left": `${paddingLeft}px` };
 
   return (
     <button
@@ -199,7 +202,7 @@ const FileNodeControls: Component<{
               onClick={() => dispatch(State.Editing({ node: props.node }))}
             >
               <span class="sr-only">Edit</span>
-              <Icon name="edit" className="h-4 w-4" />
+              <Icon name="edit" class="h-4 w-4" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -207,85 +210,89 @@ const FileNodeControls: Component<{
           </TooltipContent>
         </Tooltip>
       )}
-      {props.node._tag === "Directory" && (
-        <>
-          <Tooltip triggerOnFocusOnly={!isIdle}>
-            <TooltipTrigger>
-              <Button
-                variant="ghost"
-                class="h-full p-0 rounded-none"
-                onClick={() =>
-                  dispatch(
-                    State.Creating({
-                      parent: props.node,
-                      type: "File",
-                    })
-                  )
-                }
-              >
-                <span class="sr-only">Add File</span>
-                <Icon name="file-plus" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>New File...</p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip triggerOnFocusOnly={!isIdle} placement="bottom">
-            <TooltipTrigger>
-              <Button
-                variant="ghost"
-                class="h-full p-0 rounded-none"
-                onClick={() =>
-                  dispatch(
-                    State.Creating({
-                      parent: props.node,
-                      type: "Directory",
-                    })
-                  )
-                }
-              >
-                <span class="sr-only">Add Directory</span>
-                <Icon name="directory-plus" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>New Folder...</p>
-            </TooltipContent>
-          </Tooltip>
-        </>
-      )}
-      {props.node.userManaged && (
-        <AlertDialog>
-          <Tooltip triggerOnFocusOnly={!isIdle} placement="bottom">
-            <AlertDialogTrigger>
+      <Show when={props.node._tag === "Directory" && props.node}>
+        {(node) => (
+          <>
+            <Tooltip triggerOnFocusOnly={!isIdle}>
               <TooltipTrigger>
-                <Button variant="ghost" class="h-full p-0 rounded-none">
-                  <span class="sr-only">Delete</span>
-                  <Icon name="trash" className="h-4 w-4" />
+                <Button
+                  variant="ghost"
+                  class="h-full p-0 rounded-none"
+                  onClick={() =>
+                    dispatch(
+                      State.Creating({
+                        parent: node(),
+                        type: "File",
+                      })
+                    )
+                  }
+                >
+                  <span class="sr-only">Add File</span>
+                  <Icon name="file-plus" />
                 </Button>
               </TooltipTrigger>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete the{" "}
-                {props.node._tag.toLowerCase()}.
-              </AlertDialogDescription>
-              <AlertCircle>Cancel</AlertCircle>
-              <Button
-                class="border-destructive bg-destructive hover:bg-destructive/80 text-destructive-foreground"
-                onClick={() => remove(props.node)}
-              >
-                Confirm
-              </Button>
-            </AlertDialogContent>
-            <TooltipContent>
-              <p>Delete</p>
-            </TooltipContent>
-          </Tooltip>
-        </AlertDialog>
-      )}
+              <TooltipContent>
+                <p>New File...</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip triggerOnFocusOnly={!isIdle} placement="bottom">
+              <TooltipTrigger>
+                <Button
+                  variant="ghost"
+                  class="h-full p-0 rounded-none"
+                  onClick={() =>
+                    dispatch(
+                      State.Creating({
+                        parent: node(),
+                        type: "Directory",
+                      })
+                    )
+                  }
+                >
+                  <span class="sr-only">Add Directory</span>
+                  <Icon name="directory-plus" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>New Folder...</p>
+              </TooltipContent>
+            </Tooltip>
+          </>
+        )}
+      </Show>
+      <Show when={props.node.userManaged && props.node}>
+        {(node) => (
+          <AlertDialog>
+            <Tooltip triggerOnFocusOnly={!isIdle} placement="bottom">
+              <AlertDialogTrigger>
+                <TooltipTrigger>
+                  <Button variant="ghost" class="h-full p-0 rounded-none">
+                    <span class="sr-only">Delete</span>
+                    <Icon name="trash" class="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete the{" "}
+                  {props.node._tag.toLowerCase()}.
+                </AlertDialogDescription>
+                <AlertCircle>Cancel</AlertCircle>
+                <Button
+                  class="border-destructive bg-destructive hover:bg-destructive/80 text-destructive-foreground"
+                  onClick={() => remove(props.node)}
+                >
+                  Confirm
+                </Button>
+              </AlertDialogContent>
+              <TooltipContent>
+                <p>Delete</p>
+              </TooltipContent>
+            </Tooltip>
+          </AlertDialog>
+        )}
+      </Show>
     </div>
   );
 };

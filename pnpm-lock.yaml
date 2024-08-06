@@ -26,6 +26,9 @@ importers:
       '@effect/platform':
         specifier: ^0.61.2
         version: 0.61.2(@effect/schema@0.69.3(effect@3.6.0))(effect@3.6.0)
+      '@effect/platform-browser':
+        specifier: ^0.40.4
+        version: 0.40.4(@effect/platform@0.61.2(@effect/schema@0.69.3(effect@3.6.0))(effect@3.6.0))(effect@3.6.0)
       '@effect/schema':
         specifier: ^0.69.3
         version: 0.69.3(effect@3.6.0)
@@ -35,6 +38,9 @@ importers:
       '@kobalte/tailwindcss':
         specifier: ^0.9.0
         version: 0.9.0(tailwindcss@3.4.7)
+      '@solid-primitives/storage':
+        specifier: ^3.8.0
+        version: 3.8.0(solid-js@1.8.19)
       '@solidjs/router':
         specifier: ^0.14.1
         version: 0.14.1(solid-js@1.8.19)
@@ -266,6 +272,12 @@ packages:
         optional: true
       ws:
         optional: true
+
+  '@effect/platform-browser@0.40.4':
+    resolution: {integrity: sha512-zVmgb+ORTsN4eU4guY8jLQ3oDSlEKcxBDkN62fxlfeGJcKigC1NLJiQdynCf+oU8s32wGEFESy4+YM+cenpmRw==}
+    peerDependencies:
+      '@effect/platform': ^0.61.4
+      effect: ^3.6.1
 
   '@effect/platform@0.61.2':
     resolution: {integrity: sha512-cZdR+eNmaOS+YWpEoves5a+CecaW83EG9gcesEdthuXBt1mPUKNJhq5ky062uE+N/tktTvRQswVko/hAl27rkg==}
@@ -968,6 +980,18 @@ packages:
     resolution: {integrity: sha512-ZecE4BqY0oBk0YG00nzaAWO5Mjcny8Fc06CdbXadH9T9lzq/9GefqcSe/5AtdXqjvY/DtJ5C6CkcjPZO0o/eqg==}
     peerDependencies:
       solid-js: ^1.6.12
+
+  '@solid-primitives/storage@3.8.0':
+    resolution: {integrity: sha512-FNzsl60/zrMA2blDIjh2i6k2fnKECn870UssaKg5y9+wrXTJlce8vv0CxC3Mw7uHZnnPnDQGNyuBqeJ5mRZkOA==}
+    peerDependencies:
+      '@tauri-apps/plugin-store': '*'
+      solid-js: ^1.6.12
+      solid-start: '*'
+    peerDependenciesMeta:
+      '@tauri-apps/plugin-store':
+        optional: true
+      solid-start:
+        optional: true
 
   '@solid-primitives/trigger@1.0.11':
     resolution: {integrity: sha512-4oc8grBzBit7ByXgE1aZ0QXfhdlhXaiFjDKYsOhRyUJa8fN4hdr2IgsYqjmHwxyjK+Dm2OUwkCI1bGkaLgtgXg==}
@@ -3147,6 +3171,12 @@ snapshots:
     optionalDependencies:
       ioredis: 5.4.1
 
+  '@effect/platform-browser@0.40.4(@effect/platform@0.61.2(@effect/schema@0.69.3(effect@3.6.0))(effect@3.6.0))(effect@3.6.0)':
+    dependencies:
+      '@effect/platform': 0.61.2(@effect/schema@0.69.3(effect@3.6.0))(effect@3.6.0)
+      effect: 3.6.0
+      multipasta: 0.2.3
+
   '@effect/platform@0.61.2(@effect/schema@0.69.3(effect@3.6.0))(effect@3.6.0)':
     dependencies:
       '@effect/schema': 0.69.3(effect@3.6.0)
@@ -3662,6 +3692,11 @@ snapshots:
       solid-js: 1.8.19
 
   '@solid-primitives/static-store@0.0.8(solid-js@1.8.19)':
+    dependencies:
+      '@solid-primitives/utils': 6.2.3(solid-js@1.8.19)
+      solid-js: 1.8.19
+
+  '@solid-primitives/storage@3.8.0(solid-js@1.8.19)':
     dependencies:
       '@solid-primitives/utils': 6.2.3(solid-js@1.8.19)
       solid-js: 1.8.19

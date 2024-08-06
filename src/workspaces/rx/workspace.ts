@@ -39,10 +39,10 @@ export const workspaceHandleRx = Rx.family((workspace: Workspace) =>
 
         const solved = Rx.make(false)
 
-        let size = 0
+        let size = 0.
         const terminalSize = Rx.writable(
           () => size,
-          function (ctx, _value: void) {
+          function (ctx, value: void) {
             ctx.setSelf(size++)
           }
         ).pipe(Rx.debounce(250))
@@ -71,15 +71,15 @@ export const workspaceHandleRx = Rx.family((workspace: Workspace) =>
                 })
               })
 
-              terminal.write("Loading workspace...\n")
+              terminal.write("Loading workspace...")
 
               yield* Effect.gen(function* () {
-                input.write(`cd "${workspace.name}" && clear\n`)
+                input.write(`cd "${workspace.name}" && clear`)
                 yield* prepare.await
                 if (env.command) {
                   yield* Effect.sleep(3000)
                   yield* mount
-                  input.write(`${env.command}\n`)
+                  input.write(`${env.command}`)
                 } else {
                   yield* mount
                 }

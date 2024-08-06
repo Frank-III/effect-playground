@@ -2,7 +2,14 @@ import { Icon } from "~/components/icons";
 import { Input } from "~/components/ui/input";
 import { useClickOutside } from "~/hooks/useClickOutside";
 import { FileExplorer, State, useExplorerDispatch } from "../file-explorer";
-import { Component, createEffect, createSignal, JSX, on } from "solid-js";
+import {
+  batch,
+  Component,
+  createEffect,
+  createSignal,
+  JSX,
+  on,
+} from "solid-js";
 
 type X = Component;
 export const FileInput: Component<{
@@ -24,9 +31,11 @@ export const FileInput: Component<{
   ) => setFileName(event.target.value);
 
   const handleSubmit: JSX.EventHandler<HTMLFormElement, Event> = (event) => {
-    event.preventDefault();
-    setFileName("");
-    props.onSubmit(fileName());
+    batch(() => {
+      event.preventDefault();
+      props.onSubmit(fileName());
+      setFileName("");
+    });
   };
 
   // Close the input when the user clicks outside
@@ -49,9 +58,10 @@ export const FileInput: Component<{
         {/* TODO: make this better use Dynamic Component */}
         <Icon
           name={props.type === "File" ? "file" : "directory-closed"}
-          classList={{
-            "[&_path]:fill-none": props.type === "Directory",
-          }}
+          class={props.type === "Directory" ? "[&_path]:fill-none" : ""}
+          // classList={{
+          //   : ,
+          // }}
         />
       </span>
       <form class="grow mr-1" onSubmit={handleSubmit}>

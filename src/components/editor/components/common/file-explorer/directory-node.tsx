@@ -15,12 +15,8 @@ export function DirectoryNode({
   readonly path: string;
 }) {
   const [open, setOpen] = createSignal(true);
-  const state = useExplorerState();
+  const stateSignal = useExplorerState();
   const create = useCreate();
-
-  function isCreating() {
-    return state()._tag === "Creating" && state().parent === node;
-  }
 
   const handleToggle = () => setOpen(!open());
 
@@ -35,21 +31,44 @@ export function DirectoryNode({
         onClick={handleToggle}
       />
       <Show when={open()}>
-        {/* how can I make it typed */}
-        <Show when={isCreating() && state.type === "Directory"}>
-          <FileInput
-            type={state().type}
-            depth={depth + 1}
-            onSubmit={(name) => create(node, name, "Directory")}
-          />
+        <Show
+          when={(() => {
+            const state = stateSignal();
+            return (
+              state._tag === "Creating" &&
+              state.parent === node &&
+              state.type === "Directory" &&
+              state
+            );
+          })()}
+        >
+          {(state) => (
+            <FileInput
+              type={state().type}
+              depth={depth + 1}
+              onSubmit={(name) => create(node, name, "Directory")}
+            />
+          )}
         </Show>
         <FileTree tree={node.children} depth={depth + 1} path={path} />
-        <Show when={isCreating() && state.type === "File"}>
-          <FileInput
-            type={state.type}
-            depth={depth + 1}
-            onSubmit={(name) => create(node, name, "File")}
-          />
+        <Show
+          when={(() => {
+            const state = stateSignal();
+            return (
+              state._tag === "Creating" &&
+              state.parent === node &&
+              state.type === "File" &&
+              state
+            );
+          })()}
+        >
+          {(state) => (
+            <FileInput
+              type={state().type}
+              depth={depth + 1}
+              onSubmit={(name) => create(node, name, "File")}
+            />
+          )}
         </Show>
       </Show>
     </>

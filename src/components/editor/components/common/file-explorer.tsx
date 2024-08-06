@@ -6,6 +6,7 @@ import {
 import { FileTree } from "./file-explorer/file-tree";
 import { File, Directory } from "~/workspaces/domain/workspace";
 import { Rx, useRxSet, useRxValue } from "rx-solid";
+import { batch } from "solid-js";
 
 export declare namespace FileExplorer {
   export type InputType = "File" | "Directory";
@@ -51,8 +52,10 @@ export const useRemove = () => {
   const remove = useRxSet(handle.remove);
   const dispatch = useExplorerDispatch();
   return (node: File | Directory) => {
-    remove(node);
-    dispatch(State.Idle());
+    batch(() => {
+      remove(node);
+      dispatch(State.Idle());
+    });
   };
 };
 

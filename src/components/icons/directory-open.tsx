@@ -1,10 +1,8 @@
-import React from "react"
-import type { Icon } from "@/components/icons"
-import { cn } from "@/lib/utils"
+import { Component } from "solid-js";
+import type { Icon } from "~/components/icons";
+import { cn } from "~/lib/utils";
 
-export const DirectoryOpenIcon: React.FC<Icon.CommonProps> = ({
-  className
-}) => {
+export const DirectoryOpenIcon: Component<Icon.CommonProps> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +10,7 @@ export const DirectoryOpenIcon: React.FC<Icon.CommonProps> = ({
       viewBox="0 0 16 16"
       height="16"
       width="16"
-      className={cn("fill-current", className)}
+      class={cn("fill-current", props.class)}
     >
       <title>Directory</title>
       <path
@@ -26,7 +24,5 @@ export const DirectoryOpenIcon: React.FC<Icon.CommonProps> = ({
         strokeLinecap="round"
       />
     </svg>
-  )
-}
-
-DirectoryOpenIcon.displayName = "DirectoryOpenIcon"
+  );
+};

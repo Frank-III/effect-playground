@@ -23,7 +23,7 @@ export const FileTree: Component<{
         const fullPath = `${path || ""}/${node.name}`;
         return (
           <DirectoryNode
-            key={fullPath}
+            // key={fullPath}
             node={node}
             depth={depth}
             path={fullPath}
@@ -35,7 +35,7 @@ export const FileTree: Component<{
         const fullPath = `${path}/${node.name}`;
         return (
           <FileNode
-            key={fullPath}
+            // key={fullPath}
             type="file"
             node={node}
             depth={depth}

@@ -1,13 +1,13 @@
-import React from "react"
-import type { Icon } from "@/components/icons"
-import { cn } from "@/lib/utils"
+import { Component } from "solid-js";
+import type { Icon } from "~/components/icons";
+import { cn } from "~/lib/utils";
 
-export const GraphQLIcon: React.FC<Icon.CommonProps> = ({ className }) => {
+export const GraphQLIcon: Component<Icon.CommonProps> = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 15 16"
-      className={cn("fill-current", className)}
+      class={cn("fill-current", props.class)}
     >
       <path d="M1.02611 11.6064L1.60114 11.9384L8.00714 0.843208L7.43211 0.511208L1.02611 11.6064Z" />
       <path d="M13.7064 10.72H0.894434V11.384H13.7064V10.72Z" />
@@ -25,7 +25,5 @@ export const GraphQLIcon: React.FC<Icon.CommonProps> = ({ className }) => {
       <path d="M7.30243 15.664C6.53043 15.664 5.90643 15.04 5.90643 14.268C5.90643 13.496 6.53043 12.872 7.30243 12.872C8.07443 12.872 8.69843 13.496 8.69843 14.268C8.69843 15.036 8.07443 15.664 7.30243 15.664Z" />
       <path d="M7.30243 2.792C6.53043 2.792 5.90643 2.168 5.90643 1.396C5.90643 0.624 6.53043 0 7.30243 0C8.07443 0 8.69843 0.624 8.69843 1.396C8.69843 2.168 8.07443 2.792 7.30243 2.792Z" />
     </svg>
-  )
-}
-
-GraphQLIcon.displayName = "GraphQLIcon"
+  );
+};

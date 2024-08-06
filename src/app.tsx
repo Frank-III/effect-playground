@@ -11,11 +11,7 @@ export default function App() {
       root={(props) => (
         <>
           <Nav />
-          <Suspense>
-            <RegistryContext.Provider value={injectRegistry()}>
-              {props.children}
-            </RegistryContext.Provider>
-          </Suspense>
+          <Suspense>{props.children}</Suspense>
         </>
       )}
     >

@@ -529,4 +529,4 @@ const server = Net.createServer((socket) => {
 server.listen(34437)
 `
 
-const npmRc = `store-dir=.pnpm-store\n`
+const npmRc = `store-dir=.pnpm-store`

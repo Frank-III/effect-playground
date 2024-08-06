@@ -1,58 +1,59 @@
-import React from "react"
-import { AlertIcon } from "./alert"
-import { AlgoliaIcon } from "./algolia"
-import { AmazonIcon } from "./amazon"
-import { ArrowDownIcon } from "./arrow-down"
-import { ArrowRightIcon } from "./arrow-right"
-import { ArrowUpRightIcon } from "./arrow-up-right"
-import { ArrowUpRightLightIcon } from "./arrow-up-right-light"
-import { ArrowsUpDownIcon } from "./arrows-up-down"
-import { BarsIcon } from "./bars"
-import { BlocksIcon } from "./blocks"
-import { BunIcon } from "./bun"
-import { CheckIcon } from "./check"
-import { CheckCircleIcon } from "./check-circle"
-import { ChevronDownIcon } from "./chevron-down"
-import { ChevronRightIcon } from "./chevron-right"
-import { ClipboardIcon } from "./clipboard"
-import { CloseIcon } from "./close"
-import { CloudflareIcon } from "./cloudflare"
-import { DenoIcon } from "./deno"
-import { DirectoryClosedIcon } from "./directory-closed"
-import { DirectoryOpenIcon } from "./directory-open"
-import { DirectoryPlusIcon } from "./directory-plus"
-import { DiscordIcon } from "./discord"
-import { DisplayIcon } from "./display"
-import { DotSolid } from "./dot-solid"
-import { DotsHorizontalIcon } from "./dots-horizontal"
-import { DragHandleDotsIcon } from "./drag-handle-dots"
-import { EditIcon } from "./edit"
-import { ErrorIcon } from "./error"
-import { FileIcon } from "./file"
-import { FilePlusIcon } from "./file-plus"
-import { GearIcon } from "./gear"
-import { GitHubIcon } from "./github"
-import { GraphQLIcon } from "./graphql"
-import { InfoIcon } from "./info"
-import { LightbulbIcon } from "./lightbulb"
-import { LightbulbSolidIcon } from "./lightbulb-solid"
-import { LoadingIcon } from "./loading"
-import { MixerHorizontalIcon } from "./mixer-horizontal"
-import { MoonIcon } from "./moon"
-import { NextIcon } from "./next"
-import { NodeIcon } from "./node"
-import { OpenAPIIcon } from "./open-api"
-import { PlayIcon } from "./play"
-import { PlugsIcon } from "./plugs"
-import { PlusIcon } from "./plus"
-import { QuestionCircleIcon } from "./question-circle"
-import { ReactIcon } from "./react"
-import { SearchIcon } from "./search"
-import { ShieldIcon } from "./shield"
-import { SunIcon } from "./sun"
-import { TrashIcon } from "./trash"
-import { TrendUpIcon } from "./trend-up"
-import { TwitterIcon } from "./twitter"
+import { Dynamic } from "solid-js/web";
+import { AlertIcon } from "./alert";
+import { AlgoliaIcon } from "./algolia";
+import { AmazonIcon } from "./amazon";
+import { ArrowDownIcon } from "./arrow-down";
+import { ArrowRightIcon } from "./arrow-right";
+import { ArrowUpRightIcon } from "./arrow-up-right";
+import { ArrowUpRightLightIcon } from "./arrow-up-right-light";
+import { ArrowsUpDownIcon } from "./arrows-up-down";
+import { BarsIcon } from "./bars";
+import { BlocksIcon } from "./blocks";
+import { BunIcon } from "./bun";
+import { CheckIcon } from "./check";
+import { CheckCircleIcon } from "./check-circle";
+import { ChevronDownIcon } from "./chevron-down";
+import { ChevronRightIcon } from "./chevron-right";
+import { ClipboardIcon } from "./clipboard";
+import { CloseIcon } from "./close";
+import { CloudflareIcon } from "./cloudflare";
+import { DenoIcon } from "./deno";
+import { DirectoryClosedIcon } from "./directory-closed";
+import { DirectoryOpenIcon } from "./directory-open";
+import { DirectoryPlusIcon } from "./directory-plus";
+import { DiscordIcon } from "./discord";
+import { DisplayIcon } from "./display";
+import { DotSolid } from "./dot-solid";
+import { DotsHorizontalIcon } from "./dots-horizontal";
+import { DragHandleDotsIcon } from "./drag-handle-dots";
+import { EditIcon } from "./edit";
+import { ErrorIcon } from "./error";
+import { FileIcon } from "./file";
+import { FilePlusIcon } from "./file-plus";
+import { GearIcon } from "./gear";
+import { GitHubIcon } from "./github";
+import { GraphQLIcon } from "./graphql";
+import { InfoIcon } from "./info";
+import { LightbulbIcon } from "./lightbulb";
+import { LightbulbSolidIcon } from "./lightbulb-solid";
+import { LoadingIcon } from "./loading";
+import { MixerHorizontalIcon } from "./mixer-horizontal";
+import { MoonIcon } from "./moon";
+import { NextIcon } from "./next";
+import { NodeIcon } from "./node";
+import { OpenAPIIcon } from "./open-api";
+import { PlayIcon } from "./play";
+import { PlugsIcon } from "./plugs";
+import { PlusIcon } from "./plus";
+import { QuestionCircleIcon } from "./question-circle";
+import { ReactIcon } from "./react";
+import { SearchIcon } from "./search";
+import { ShieldIcon } from "./shield";
+import { SunIcon } from "./sun";
+import { TrashIcon } from "./trash";
+import { TrendUpIcon } from "./trend-up";
+import { TwitterIcon } from "./twitter";
+import { Component } from "solid-js";
 
 const icons = {
   alert: AlertIcon,
@@ -108,24 +109,23 @@ const icons = {
   sun: SunIcon,
   trash: TrashIcon,
   "trend-up": TrendUpIcon,
-  twitter: TwitterIcon
-}
+  twitter: TwitterIcon,
+};
 
 export declare namespace Icon {
   export interface Props extends CommonProps {
-    readonly name: Name
+    readonly name: Name;
   }
 
   export interface CommonProps {
-    readonly className?: string
+    readonly class?: string;
   }
 
-  export type Name = keyof typeof icons
+  export type Name = keyof typeof icons;
 }
 
-export const Icon: React.FC<Icon.Props> = ({ name, className }) => {
-  const IconComponent = icons[name]
-  return <IconComponent className={className} />
-}
-
-Icon.displayName = "Icon"
+export const Icon: Component<Icon.Props> = (props) => {
+  const Icon: Component<Icon.CommonProps> = icons[props.name];
+  // return <Dynamic component={Icon} />;
+  return <Icon class={props.class} />;
+};

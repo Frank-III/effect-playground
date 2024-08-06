@@ -10,11 +10,14 @@ export const WorkspaceProvider: ParentComponent<{ workspace: Workspace }> = (
   const handle = useRxSuspense(workspaceHandleRx(props.workspace));
   return (
     <Show
-      when={handle() && handle()?._tag === "Success"}
+      when={(() => {
+        const handleRes = handle();
+        return handleRes && handleRes._tag === "Success" && handleRes;
+      })()}
       fallback={<div>loading</div>}
     >
-      {(success) => (
-        <WorkspaceContext.Provider value={handle()!.value}>
+      {(handle) => (
+        <WorkspaceContext.Provider value={handle().value}>
           {props.children}
         </WorkspaceContext.Provider>
       )}
