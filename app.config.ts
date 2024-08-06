@@ -6,7 +6,7 @@ export default defineConfig({
     // plugins: [tailwindcss()]
   },
   solid: {
-    exclude: ["**/node_modules/.vinxi/client/deps/**/*"],
+    exclude: ["**/node_modules/.vinxi/client/deps/**/*", "**/node_modules/.vinxi/server/deps/**/*"],
   },
   middleware: "./src/middleware.ts",
   ssr: false,

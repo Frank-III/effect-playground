@@ -54,7 +54,6 @@ const make = Effect.gen(function* () {
   const monaco = yield* loadApi;
 
   monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
-
   monaco.languages.typescript.typescriptDefaults.setWorkerOptions({
     customWorkerPath: `${new URL(window.location.origin)}vendor/ts.worker.js`,
   });

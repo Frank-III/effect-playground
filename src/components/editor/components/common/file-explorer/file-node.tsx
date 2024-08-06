@@ -1,57 +1,56 @@
-import { batch, Component, createSignal, Show, splitProps } from "solid-js";
-import { Equal } from "effect";
-import { useRx } from "rx-solid";
-import { Icon } from "~/components/icons";
+import { batch, Component, createSignal, Show, splitProps } from "solid-js"
+import { Equal } from "effect"
+import { useRx } from "rx-solid"
+import { Icon } from "~/components/icons"
 import {
   AlertDialog,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from "~/components/ui/alert-dialog";
-import { Button } from "~/components/ui/button";
+  AlertDialogTrigger
+} from "~/components/ui/alert-dialog"
+import { Button } from "~/components/ui/button"
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
-} from "~/components/ui/tooltip";
-import { cn } from "~/lib/utils";
-import { useWorkspaceHandle } from "~/workspaces/context/workspace";
-import { Directory, File } from "~/workspaces/domain/workspace";
+  TooltipTrigger
+} from "~/components/ui/tooltip"
+import { useWorkspaceHandle } from "~/workspaces/context/workspace"
+import { Directory, File } from "~/workspaces/domain/workspace"
 import {
   State,
   useExplorerDispatch,
   useExplorerState,
   useRemove,
-  useRename,
-} from "../file-explorer";
-import { FileInput } from "./file-input";
-import { Accessor, createMemo, JSX, ParentComponent } from "solid-js";
-import { AlertCircle } from "lucide-solid";
+  useRename
+} from "../file-explorer"
+import { FileInput } from "./file-input"
+import { Accessor, createMemo, JSX, ParentComponent } from "solid-js"
+import { AlertCircle } from "lucide-solid"
 
 export declare namespace FileNode {
-  export type Props = FileProps | DirectoryProps;
+  export type Props = FileProps | DirectoryProps
 
   export interface FileProps extends CommonProps {
-    readonly type: "file";
-    readonly node: File;
+    readonly type: "file"
+    readonly node: File
   }
 
   export interface DirectoryProps extends CommonProps {
-    readonly type: "directory";
-    readonly node: Directory;
-    readonly isOpen: boolean;
+    readonly type: "directory"
+    readonly node: Directory
+    readonly isOpen: boolean
   }
 
   export interface CommonProps {
-    readonly depth: number;
-    readonly path: string;
-    readonly class?: string;
-    readonly onClick?: OnClick;
+    readonly depth: number
+    readonly path: string
+    readonly class?: string
+    readonly onClick?: OnClick
   }
 
   export interface OnClick {
-    (event: MouseEvent, node: File | Directory): void;
+    (event: MouseEvent, node: File | Directory): void
   }
 }
 
@@ -61,27 +60,29 @@ export const FileNode: Component<FileNode.Props> = (props) => {
     "depth",
     "path",
     "class",
-    "onClick",
-  ]);
-  const handle = useWorkspaceHandle();
-  const state = useExplorerState();
-  const [selectedFile, setSelectedFile] = useRx(handle.selectedFile);
-  const [showControls, setShowControls] = createSignal(false);
-  const rename = useRename();
+    "onClick"
+  ])
+  const handle = useWorkspaceHandle()
+  const state = useExplorerState()
+  const [selectedFile, setSelectedFile] = useRx(handle.selectedFile)
+  const [showControls, setShowControls] = createSignal(false)
+  const rename = useRename()
   const isEditing = createMemo(() => {
-    const stateRes = state();
-    stateRes._tag === "Editing" && Equal.equals(stateRes.node, local.node);
-  });
-  const isSelected = () => Equal.equals(selectedFile(), local.node);
+    const stateRes = state()
+    return (
+      stateRes._tag === "Editing" && Equal.equals(stateRes.node, local.node)
+    )
+  })
+  const isSelected = () => Equal.equals(selectedFile(), local.node)
 
   const handleClick: FileNode.OnClick = (event, node) => {
     batch(() => {
       if (node._tag === "File") {
-        setSelectedFile(node);
+        setSelectedFile(node)
       }
-      props.onClick?.(event, node);
-    });
-  };
+      props.onClick?.(event, node)
+    })
+  }
 
   return (
     <Show
@@ -100,7 +101,9 @@ export const FileNode: Component<FileNode.Props> = (props) => {
             <FileNodeIcon {...others} />
             <FileNodeName node={props.node} />
           </FileNodeTrigger>
-          {showControls() && <FileNodeControls node={local.node} />}
+          <Show when={showControls()}>
+            <FileNodeControls node={local.node} />
+          </Show>
         </FileNodeRoot>
       }
     >
@@ -111,37 +114,37 @@ export const FileNode: Component<FileNode.Props> = (props) => {
         onSubmit={(name) => rename(props.node, name)}
       />
     </Show>
-  );
-};
+  )
+}
 
 const FileNodeRoot: ParentComponent<{
-  readonly isSelected: Accessor<boolean>;
-  readonly onMouseEnter: () => void;
-  readonly onMouseLeave: () => void;
+  readonly isSelected: Accessor<boolean>
+  readonly onMouseEnter: () => void
+  readonly onMouseLeave: () => void
 }> = (props) => {
   return (
     <div
       class="flex items-center transition-colors"
       classList={{
         "bg-gray-200 dark:bg-zinc-800": props.isSelected(),
-        "hover:bg-gray-200/50 dark:hover:bg-zinc-800/50": !props.isSelected(),
+        "hover:bg-gray-200/50 dark:hover:bg-zinc-800/50": !props.isSelected()
       }}
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
     >
       {props.children}
     </div>
-  );
-};
+  )
+}
 
 const FileNodeTrigger: ParentComponent<{
-  readonly depth: number;
-  readonly isSelected: Accessor<boolean>;
-  readonly onClick: JSX.EventHandler<HTMLButtonElement, MouseEvent>;
+  readonly depth: number
+  readonly isSelected: Accessor<boolean>
+  readonly onClick: JSX.EventHandler<HTMLButtonElement, MouseEvent>
 }> = (props) => {
   // Tailwind cannot dynamically generate styles, so we resort to the `style` prop here
-  const paddingLeft = 16 + props.depth * 8;
-  const styles = { "padding-left": `${paddingLeft}px` };
+  const paddingLeft = 16 + props.depth * 8
+  const styles = { "padding-left": `${paddingLeft}px` }
 
   return (
     <button
@@ -150,14 +153,14 @@ const FileNodeTrigger: ParentComponent<{
       class="flex grow items-center py-1 [&_svg]:mr-1 [&_span]:truncate"
       classList={{
         "text-blue-500 dark:text-sky-500": props.isSelected(),
-        "hover:text-blue-500 dark:hover:text-sky-500": !props.isSelected(),
+        "hover:text-blue-500 dark:hover:text-sky-500": !props.isSelected()
       }}
       onClick={props.onClick}
     >
       {props.children}
     </button>
-  );
-};
+  )
+}
 
 function FileNodeIcon(
   props:
@@ -170,25 +173,25 @@ function FileNodeIcon(
     <Icon name="directory-open" />
   ) : (
     <Icon name="directory-closed" />
-  );
+  )
 }
 
 const FileNodeName: Component<{
-  readonly node: File | Directory;
+  readonly node: File | Directory
 }> = (props) => {
-  const fileName = props.node.name.split("/").filter(Boolean).pop();
-  return <span>{fileName}</span>;
-};
+  const fileName = props.node.name.split("/").filter(Boolean).pop()
+  return <span>{fileName}</span>
+}
 
 const FileNodeControls: Component<{
-  readonly node: File | Directory;
+  readonly node: File | Directory
 }> = (props) => {
   // should I make it an Accessor here?
-  const state = useExplorerState();
-  const dispatch = useExplorerDispatch();
-  const remove = useRemove();
+  const state = useExplorerState()
+  const dispatch = useExplorerDispatch()
+  const remove = useRemove()
 
-  const isIdle = () => state()._tag === "Idle";
+  const isIdle = () => state()._tag === "Idle"
 
   return (
     <div class="flex items-center gap-2 mr-2">
@@ -222,7 +225,7 @@ const FileNodeControls: Component<{
                     dispatch(
                       State.Creating({
                         parent: node(),
-                        type: "File",
+                        type: "File"
                       })
                     )
                   }
@@ -244,7 +247,7 @@ const FileNodeControls: Component<{
                     dispatch(
                       State.Creating({
                         parent: node(),
-                        type: "Directory",
+                        type: "Directory"
                       })
                     )
                   }
@@ -275,13 +278,13 @@ const FileNodeControls: Component<{
               <AlertDialogContent>
                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the{" "}
-                  {props.node._tag.toLowerCase()}.
+                  This action cannot be undone. This will permanently delete
+                  the {node()._tag.toLowerCase()}.
                 </AlertDialogDescription>
                 <AlertCircle>Cancel</AlertCircle>
                 <Button
                   class="border-destructive bg-destructive hover:bg-destructive/80 text-destructive-foreground"
-                  onClick={() => remove(props.node)}
+                  onClick={() => remove(node())}
                 >
                   Confirm
                 </Button>
@@ -294,5 +297,5 @@ const FileNodeControls: Component<{
         )}
       </Show>
     </div>
-  );
-};
+  )
+}

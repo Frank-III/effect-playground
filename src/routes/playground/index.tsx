@@ -14,9 +14,8 @@ export default function Playground() {
 
 function PlaygroundLoader() {
   const workspaceSignal = useRxSuspense(importRx)
-  // console.log("loader Signal", workspaceSignal());
   return (
-    <main class="relative flex flex-col h-full w-full z-0">
+    <main class="relative flex flex-col size-full z-0">
       <Show
         when={(() => {
           const workspace = workspaceSignal()

@@ -18,8 +18,8 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(solid-js@1.8.19)
       '@dprint/formatter':
-        specifier: ^0.4.1
-        version: 0.4.1
+        specifier: ^0.3.0
+        version: 0.3.0
       '@effect/experimental':
         specifier: ^0.21.2
         version: 0.21.2(@effect/platform@0.61.2(@effect/schema@0.69.3(effect@3.6.0))(effect@3.6.0))(@effect/schema@0.69.3(effect@3.6.0))(effect@3.6.0)(ioredis@5.4.1)
@@ -74,15 +74,12 @@ importers:
       lucide-solid:
         specifier: ^0.419.0
         version: 0.419.0(solid-js@1.8.19)
-      monaco-editor:
-        specifier: ^0.50.0
-        version: 0.50.0
       postcss:
         specifier: ^8.4.40
         version: 8.4.40
       rx-solid:
-        specifier: ^0.0.2
-        version: 0.0.2(solid-js@1.8.19)
+        specifier: ^0.0.3
+        version: 0.0.3(solid-js@1.8.19)
       solid-js:
         specifier: ^1.8.19
         version: 1.8.19
@@ -99,6 +96,12 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.7
         version: 0.5.7(tailwindcss@3.4.7)
+      '@webcontainer/snapshot':
+        specifier: ^0.1.0
+        version: 0.1.0
+      monaco-editor:
+        specifier: ^0.48.0
+        version: 0.48.0
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.7)
@@ -245,8 +248,8 @@ packages:
   '@deno/shim-deno@0.19.2':
     resolution: {integrity: sha512-q3VTHl44ad8T2Tw2SpeAvghdGOjlnLPDNO2cpOxwMrBE/PVas6geWpbpIgrM+czOCH0yejp0yi8OaTuB+NU40Q==}
 
-  '@dprint/formatter@0.4.1':
-    resolution: {integrity: sha512-IB/GXdlMOvi0UhQQ9mcY15Fxcrc2JPadmo6tqefCNV0bptFq7YBpggzpqYXldBXDa04CbKJ+rDwO2eNRPE2+/g==}
+  '@dprint/formatter@0.3.0':
+    resolution: {integrity: sha512-N9fxCxbaBOrDkteSOzaCqwWjso5iAe+WJPsHC021JfHNj2ThInPNEF13ORDKta3llq5D1TlclODCvOvipH7bWQ==}
 
   '@effect-rx/rx@0.33.8':
     resolution: {integrity: sha512-dZZW2BbXNRcvNB37tdjWzCZQpz6D+xPaZcaFusQImvwMzMNhqzVHQa9a8V7r8+fZrgzY1nJpM2HypdfGSsjAng==}
@@ -631,6 +634,10 @@ packages:
   '@mapbox/node-pre-gyp@1.0.11':
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
+
+  '@msgpack/msgpack@3.0.0-beta2':
+    resolution: {integrity: sha512-y+l1PNV0XDyY8sM3YtuMLK5vE3/hkfId+Do8pLo/OPxfxuFAUwcGz3oiiUuV46/aBpwTzZ+mRWVMtlSKbradhw==}
+    engines: {node: '>= 14'}
 
   '@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.3':
     resolution: {integrity: sha512-QZHtlVgbAdy2zAqNA9Gu1UpIuI8Xvsd1v8ic6B2pZmeFnFcMWiPLfWXh7TVw4eGEZ/C9TH281KwhVoeQUKbyjw==}
@@ -1080,6 +1087,10 @@ packages:
 
   '@webcontainer/api@1.3.0-internal.2':
     resolution: {integrity: sha512-lLSlSehbuYc9E7ecK+tMRX4BbWETNX1OgRlS+NerQh3X3sHNbxLD86eScEMAiA5VBnUeSnLtLe7eC/ftM8fR3Q==}
+
+  '@webcontainer/snapshot@0.1.0':
+    resolution: {integrity: sha512-PTIGQ3osUpTbK/dqB8RYbcZGv8IK+DJACx709z5sFbeIlngB3hUFpTEYFYs1SbUvr/AEQqvd0/bhc4ectrPRRw==}
+    engines: {node: '>=16'}
 
   '@xterm/addon-fit@0.10.0':
     resolution: {integrity: sha512-UFYkDm4HUahf2lnEyHvio51TNGiLK66mqP2JoATy7hRZeXaGMRDr00JiSF7m63vR5WKATF605yEggJKsw0JpMQ==}
@@ -2080,8 +2091,8 @@ packages:
   mlly@1.7.1:
     resolution: {integrity: sha512-rrVRZRELyQzrIUAVMHxP97kv+G786pHmOKzuFII8zDYahFBS7qnHh2AlYSl1GAHhaMPCz6/oHjVMcfFYgFYHgA==}
 
-  monaco-editor@0.50.0:
-    resolution: {integrity: sha512-8CclLCmrRRh+sul7C08BmPBP3P8wVWfBHomsTcndxg5NRCEPfu/mc2AGU8k37ajjDVXcXFc12ORAMUkmk+lkFA==}
+  monaco-editor@0.48.0:
+    resolution: {integrity: sha512-goSDElNqFfw7iDHMg8WDATkfcyeLTNpBHQpO8incK6p5qZt5G/1j41X0xdGzpIkGojGXM+QiRQyLjnfDVvrpwA==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -2439,8 +2450,8 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  rx-solid@0.0.2:
-    resolution: {integrity: sha512-Yy8S3tWcJam7cBOYkLukdQqZbRuQZQ9T6N0sPdIeHtUtQNUtPRkKMUijHyBjI9gt3SYK28IEo/C582/UnpN6rQ==}
+  rx-solid@0.0.3:
+    resolution: {integrity: sha512-sYixKjjGjGE0IcUVwJRMBp5dtNfOYfF86gSKAXHFTyBTO95r09b3hOEuS77/HHO5f5EbSavDnpd7ii2/Ash+EA==}
     engines: {node: '>=18', pnpm: '>=9.0.0'}
     peerDependencies:
       solid-js: ^1.6.0
@@ -3156,7 +3167,7 @@ snapshots:
       '@deno/shim-deno-test': 0.5.0
       which: 4.0.0
 
-  '@dprint/formatter@0.4.1': {}
+  '@dprint/formatter@0.3.0': {}
 
   '@effect-rx/rx@0.33.8(effect@3.6.0)':
     dependencies:
@@ -3421,6 +3432,8 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  '@msgpack/msgpack@3.0.0-beta2': {}
 
   '@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.3':
     optional: true
@@ -3868,6 +3881,10 @@ snapshots:
       vinxi: 0.4.1(@types/node@22.0.2)(ioredis@5.4.1)(terser@5.31.3)
 
   '@webcontainer/api@1.3.0-internal.2': {}
+
+  '@webcontainer/snapshot@0.1.0':
+    dependencies:
+      '@msgpack/msgpack': 3.0.0-beta2
 
   '@xterm/addon-fit@0.10.0(@xterm/xterm@5.5.0)':
     dependencies:
@@ -4856,7 +4873,7 @@ snapshots:
       pkg-types: 1.1.3
       ufo: 1.5.4
 
-  monaco-editor@0.50.0: {}
+  monaco-editor@0.48.0: {}
 
   mri@1.2.0: {}
 
@@ -5292,7 +5309,7 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  rx-solid@0.0.2(solid-js@1.8.19):
+  rx-solid@0.0.3(solid-js@1.8.19):
     dependencies:
       '@effect-rx/rx': 0.33.8(effect@3.6.0)
       effect: 3.6.0

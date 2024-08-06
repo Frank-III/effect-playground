@@ -4,7 +4,7 @@ import {
   Workspace,
   WorkspaceShell
 } from "~/workspaces/domain/workspace"
-import { Result, Rx } from "rx-solid"
+import { Rx } from "rx-solid"
 import { Clipboard } from "@effect/platform-browser"
 import { Effect, Layer } from "effect"
 import { editorRx } from "~/components/editor/rx"
@@ -45,6 +45,19 @@ export const shareRx = Rx.family((handle: RxWorkspaceHandle) =>
   )
 )
 
+export const devToolsLayer = new File({
+  name: "DevTools.ts",
+  initialContent: `import { DevTools } from "@effect/experimental"
+import { NodeSocket } from "@effect/platform-node"
+import { Effect, Layer, Logger } from "effect"
+
+export const DevToolsLive = Layer.effectDiscard(Effect.sleep(100)).pipe(
+  Layer.provideMerge(DevTools.layerSocket),
+  Layer.provide(NodeSocket.layerNet({ port: 34437 })),
+  Layer.merge(Logger.pretty)
+)`
+})
+
 const defaultWorkspace = new Workspace({
   name: "playground",
   dependencies: packageJson.dependencies,
@@ -71,7 +84,7 @@ program.pipe(
 )
 `
       }),
-      // devToolsLayer
+      devToolsLayer
     ])
   ]
 })
