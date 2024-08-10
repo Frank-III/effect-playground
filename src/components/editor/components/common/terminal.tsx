@@ -9,12 +9,11 @@ import {
   useWorkspaceShells
 } from "~/workspaces/context/workspace"
 import { createEffect, createMemo, createSignal, Suspense } from "solid-js"
-import { Terminal as XTerm } from "@xterm/xterm"
 
 export function Terminal({ shell }: { readonly shell: WorkspaceShell }) {
   return (
     <div class="relative z-0 h-full flex flex-col">
-      <Suspense fallback={null}>
+      <Suspense fallback={<p>Loading Terminal</p>}>
         <div class="flex-1 overflow-hidden">
           <Shell shell={shell} />
         </div>
@@ -26,12 +25,13 @@ export function Terminal({ shell }: { readonly shell: WorkspaceShell }) {
 function Shell({ shell }: { readonly shell: WorkspaceShell }) {
   const [ref, setRef] = createSignal<HTMLDivElement>()
   const handle = useWorkspaceHandle()
-  const rx = createMemo(() => handle.terminal(shell))
+  const rx = () => handle.terminal(shell)
   const terminal = useRxSuspense(rx())
 
   createEffect(() => {
     const terminalRes = terminal()
     if (terminalRes && terminalRes?._tag === "Success") {
+      if (!ref()) return
       terminalRes.value.open(ref()!)
     }
   })

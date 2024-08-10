@@ -8,7 +8,8 @@ import {
   createEffect,
   createSignal,
   JSX,
-  on
+  on,
+  onMount
 } from "solid-js"
 
 type X = Component
@@ -37,6 +38,12 @@ export const FileInput: Component<{
       setFileName("")
     })
   }
+
+  onMount(() => {
+    setTimeout(() => {
+      inputRef()?.focus()
+    }, 0)
+  })
 
   // Close the input when the user clicks outside
   useClickOutside(inputRef, () => dispatch(State.Idle()))

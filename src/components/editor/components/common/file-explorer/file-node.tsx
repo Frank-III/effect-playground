@@ -267,32 +267,33 @@ const FileNodeControls: Component<{
         {(node) => (
           <AlertDialog>
             <Tooltip triggerOnFocusOnly={!isIdle} placement="bottom">
-              <AlertDialogTrigger>
-                <TooltipTrigger>
-                  <Button variant="ghost" class="h-full p-0 rounded-none">
-                    <span class="sr-only">Delete</span>
-                    <Icon name="trash" class="h-4 w-4" />
-                  </Button>
-                </TooltipTrigger>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  the {node()._tag.toLowerCase()}.
-                </AlertDialogDescription>
-                <AlertCircle>Cancel</AlertCircle>
-                <Button
-                  class="border-destructive bg-destructive hover:bg-destructive/80 text-destructive-foreground"
-                  onClick={() => remove(node())}
+              <TooltipTrigger>
+                <AlertDialogTrigger
+                  as={Button}
+                  variant="ghost"
+                  class="h-full p-0 rounded-none"
                 >
-                  Confirm
-                </Button>
-              </AlertDialogContent>
+                  <span class="sr-only">Delete</span>
+                  <Icon name="trash" class="h-4 w-4" />
+                </AlertDialogTrigger>
+              </TooltipTrigger>
               <TooltipContent>
                 <p>Delete</p>
               </TooltipContent>
             </Tooltip>
+            <AlertDialogContent>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete the{" "}
+                {node()._tag.toLowerCase()}.
+              </AlertDialogDescription>
+              <Button
+                class="border-destructive bg-destructive hover:bg-destructive/80 text-destructive-foreground"
+                onClick={() => remove(node())}
+              >
+                Confirm
+              </Button>
+            </AlertDialogContent>
           </AlertDialog>
         )}
       </Show>

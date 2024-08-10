@@ -18,7 +18,9 @@ type AlertDialogOverlayProps<T extends ValidComponent = "div"> =
 const AlertDialogOverlay = <T extends ValidComponent = "div">(
   props: PolymorphicProps<T, AlertDialogOverlayProps<T>>
 ) => {
-  const [local, others] = splitProps(props as AlertDialogOverlayProps, ["class"])
+  const [local, others] = splitProps(props as AlertDialogOverlayProps, [
+    "class"
+  ])
   return (
     <AlertDialogPrimitive.Overlay
       class={cn(
@@ -39,7 +41,10 @@ type AlertDialogContentProps<T extends ValidComponent = "div"> =
 const AlertDialogContent = <T extends ValidComponent = "div">(
   props: PolymorphicProps<T, AlertDialogContentProps<T>>
 ) => {
-  const [local, others] = splitProps(props as AlertDialogContentProps, ["class", "children"])
+  const [local, others] = splitProps(props as AlertDialogContentProps, [
+    "class",
+    "children"
+  ])
   return (
     <AlertDialogPortal>
       <AlertDialogOverlay />
@@ -80,8 +85,15 @@ type AlertDialogTitleProps<T extends ValidComponent = "h2"> =
 const AlertDialogTitle = <T extends ValidComponent = "h2">(
   props: PolymorphicProps<T, AlertDialogTitleProps<T>>
 ) => {
-  const [local, others] = splitProps(props as AlertDialogTitleProps, ["class"])
-  return <AlertDialogPrimitive.Title class={cn("text-lg font-semibold", local.class)} {...others} />
+  const [local, others] = splitProps(props as AlertDialogTitleProps, [
+    "class"
+  ])
+  return (
+    <AlertDialogPrimitive.Title
+      class={cn("text-lg font-semibold", local.class)}
+      {...others}
+    />
+  )
 }
 
 type AlertDialogDescriptionProps<T extends ValidComponent = "p"> =
@@ -92,7 +104,9 @@ type AlertDialogDescriptionProps<T extends ValidComponent = "p"> =
 const AlertDialogDescription = <T extends ValidComponent = "p">(
   props: PolymorphicProps<T, AlertDialogDescriptionProps<T>>
 ) => {
-  const [local, others] = splitProps(props as AlertDialogDescriptionProps, ["class"])
+  const [local, others] = splitProps(props as AlertDialogDescriptionProps, [
+    "class"
+  ])
   return (
     <AlertDialogPrimitive.Description
       class={cn("text-sm text-muted-foreground", local.class)}

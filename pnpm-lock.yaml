@@ -78,8 +78,8 @@ importers:
         specifier: ^8.4.40
         version: 8.4.40
       rx-solid:
-        specifier: ^0.0.3
-        version: 0.0.3(solid-js@1.8.19)
+        specifier: ^0.0.4
+        version: 0.0.4(solid-js@1.8.19)
       solid-js:
         specifier: ^1.8.19
         version: 1.8.19
@@ -2450,8 +2450,8 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  rx-solid@0.0.3:
-    resolution: {integrity: sha512-sYixKjjGjGE0IcUVwJRMBp5dtNfOYfF86gSKAXHFTyBTO95r09b3hOEuS77/HHO5f5EbSavDnpd7ii2/Ash+EA==}
+  rx-solid@0.0.4:
+    resolution: {integrity: sha512-p8CORj6Se+rguHmc5F0LuthPmEHscJmQK0PiMbS3OVq9nhTHFHgqHjL/nAw6f1+LSmoYq6mWikXH2Klj4YpaVA==}
     engines: {node: '>=18', pnpm: '>=9.0.0'}
     peerDependencies:
       solid-js: ^1.6.0
@@ -5309,7 +5309,7 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  rx-solid@0.0.3(solid-js@1.8.19):
+  rx-solid@0.0.4(solid-js@1.8.19):
     dependencies:
       '@effect-rx/rx': 0.33.8(effect@3.6.0)
       effect: 3.6.0

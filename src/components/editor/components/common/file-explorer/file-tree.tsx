@@ -1,4 +1,4 @@
-import { Accessor, Component, createMemo, splitProps } from "solid-js"
+import { Accessor, Component, createMemo, For, splitProps } from "solid-js"
 import { Array } from "effect"
 import { FileTree as Tree } from "~/workspaces/domain/workspace"
 import { DirectoryNode } from "./directory-node"
@@ -19,30 +19,34 @@ export const FileTree: Component<{
   return (
     <div class="text-sm">
       {/* directory */}
-      {partitionedTree()[1].map((node) => {
-        const fullPath = `${path || ""}/${node.name}`
-        return (
-          <DirectoryNode
-            // key={fullPath}
-            node={node}
-            depth={depth}
-            path={fullPath}
-          />
-        )
-      })}
+      <For each={partitionedTree()[1]}>
+        {(node) => {
+          const fullPath = `${path || ""}/${node.name}`
+          return (
+            <DirectoryNode
+              // key={fullPath}
+              node={node}
+              depth={depth}
+              path={fullPath}
+            />
+          )
+        }}
+      </For>
       {/* file */}
-      {partitionedTree()[0].map((node) => {
-        const fullPath = `${path}/${node.name}`
-        return (
-          <FileNode
-            // key={fullPath}
-            type="file"
-            node={node}
-            depth={depth}
-            path={fullPath}
-          />
-        )
-      })}
+      <For each={partitionedTree()[0]}>
+        {(node) => {
+          const fullPath = `${path}/${node.name}`
+          return (
+            <FileNode
+              // key={fullPath}
+              type="file"
+              node={node}
+              depth={depth}
+              path={fullPath}
+            />
+          )
+        }}
+      </For>
     </div>
   )
 }

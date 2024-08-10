@@ -29,6 +29,7 @@ import {
   Component,
   ComponentProps,
   createSignal,
+  For,
   Show,
   Suspense
 } from "solid-js"
@@ -73,7 +74,7 @@ export const CodeEditorSuspended: Component<{
     // <Resizable orientation="vertical" sizes={persistedSizes()}>
     <Resizable orientation="vertical">
       <ResizablePanel initialSize={0.7}>
-        <Show when={!props.disableExplorer} fallback={<FileEditor />}>
+        <Show when={!props.disableExplorer} fallback={<FileEditor />} keyed>
           <Resizable orientation="horizontal">
             <ResizablePanel
               initialSize={0.3}
@@ -88,7 +89,9 @@ export const CodeEditorSuspended: Component<{
             />
             {/* <div class="size-full bg-neutral-200 dark:bg-neutral-700" /> */}
             <ResizablePanel initialSize={0.7}>
-              <p>Editor</p>
+              <div class="flex size-full items-center justify-center">
+                <p>Editor</p>
+              </div>
               {/* <FileEditor /> */}
             </ResizablePanel>
           </Resizable>
@@ -149,10 +152,10 @@ function WorkspaceShells() {
   }
 
   return (
-    <>
-      {shells().map((shell, index) => (
+    <For each={shells()}>
+      {(shell, index) => (
         <>
-          <Show when={index > 0}>
+          <Show when={index() > 0} keyed>
             <ResizableHandle />
           </Show>
           <ResizablePanel
@@ -164,7 +167,7 @@ function WorkspaceShells() {
             <Terminal shell={shell} />
           </ResizablePanel>
         </>
-      ))}
-    </>
+      )}
+    </For>
   )
 }
