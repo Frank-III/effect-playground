@@ -8,6 +8,8 @@ const NO_VALUE_EXISTS_IN_SCOPE_FOR_THE_SHORTHAND_PROPERTY_CODE = 18004;
 
 const uniq = (arr) => Array.from(new Set(arr));
 
+
+
 // eslint-disable-next-line no-restricted-globals
 self.customTSWorkerFactory = (TypeScriptWorker) => {
   return class extends TypeScriptWorker {

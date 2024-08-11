@@ -3,6 +3,7 @@ import { LoadingSpinner } from "~/components/ui/loading-spinner"
 import { useRxSuspense, useRxValue } from "rx-solid"
 import { Show, Suspense } from "solid-js"
 import { importRx } from "~/lib/playground/rx"
+import "~/components/editor/editor-loader"
 
 export default function Playground() {
   return (
@@ -21,8 +22,9 @@ function PlaygroundLoader() {
           const workspace = workspaceSignal()
           return workspace && workspace._tag === "Success" && workspace
         })()}
+        keyed
       >
-        {(workspace) => <CodeEditor workspace={workspace().value} />}
+        {(workspace) => <CodeEditor workspace={workspace.value} />}
       </Show>
     </main>
   )

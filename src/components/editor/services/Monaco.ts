@@ -1,8 +1,9 @@
 import { Data, Effect, GlobalValue, Layer, Stream, pipe } from "effect";
 import type * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+// const monacoEditor = lazy(() => import("~/components/editor/editor-loader"));
 import { File, FullPath, Workspace } from "~/workspaces/domain/workspace";
-
 export type MonacoApi = typeof monaco;
+
 
 export class MonacoError extends Data.TaggedError("MonacoError")<{
   readonly reason: "LoadApi";
@@ -15,38 +16,7 @@ export class MonacoError extends Data.TaggedError("MonacoError")<{
 
 const loadApi = GlobalValue.globalValue("app/Monaco/loadApi", () =>
   Effect.async<MonacoApi, MonacoError>((resume) => {
-    const script = document.createElement("script");
-    script.src = "/vendor/vs.loader.js";
-    script.async = true;
-    script.onload = () => {
-      const require = globalThis.require as any;
-
-      require.config({
-        paths: {
-          vs: "/vendor/vs",
-        },
-        // This is something you need for monaco to work
-        ignoreDuplicateModules: ["vs/editor/editor.main"],
-      });
-
-      require(["vs/editor/editor.main", "vs/language/typescript/tsWorker"], (
-        monaco: MonacoApi,
-        _tsWorker: any
-      ) => {
-        const isOK = monaco && (window as any).ts;
-        if (!isOK) {
-          resume(
-            new MonacoError(
-              "LoadApi",
-              "Unable to setup all playground dependencies!"
-            )
-          );
-        } else {
-          resume(Effect.succeed(monaco));
-        }
-      });
-    };
-    document.body.appendChild(script);
+    import("monaco-editor/esm/vs/editor/editor.api").then((monaco) => resume(Effect.succeed(monaco)))
   }).pipe(Effect.cached, Effect.runSync)
 );
 

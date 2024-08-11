@@ -89,10 +89,10 @@ export const CodeEditorSuspended: Component<{
             />
             {/* <div class="size-full bg-neutral-200 dark:bg-neutral-700" /> */}
             <ResizablePanel initialSize={0.7}>
-              <div class="flex size-full items-center justify-center">
+              {/* <div class="flex size-full items-center justify-center">
                 <p>Editor</p>
-              </div>
-              {/* <FileEditor /> */}
+              </div> */}
+              <FileEditor />
             </ResizablePanel>
           </Resizable>
         </Show>
