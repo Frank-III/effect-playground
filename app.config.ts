@@ -9,5 +9,5 @@ export default defineConfig({
     exclude: ["**/node_modules/.vinxi/client/deps/**/*", "**/node_modules/.vinxi/server/deps/**/*"],
   },
   middleware: "./src/middleware.ts",
-  ssr: false,
+  // ssr: false,
 });

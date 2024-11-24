@@ -1,5 +1,5 @@
 import { Icon } from "~/components/icons"
-import { Result, useRxSet, useRxSuspense } from "rx-solid"
+import { Result, createRxSet, useRxSuspense } from "rx-solid"
 import "@xterm/xterm/css/xterm.css"
 // import "./terminal.css";
 import { WorkspaceShell } from "~/workspaces/domain/workspace"
@@ -41,7 +41,7 @@ function Shell({ shell }: { readonly shell: WorkspaceShell }) {
 
 function AddRemoveButton({ shell }: { readonly shell: WorkspaceShell }) {
   const workspace = useWorkspaceRx()
-  const setWorkspace = useRxSet(workspace)
+  const setWorkspace = createRxSet(workspace)
   const shells = useWorkspaceShells()
 
   //TODO: fix this when I have the time on rx-solid

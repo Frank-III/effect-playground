@@ -5,7 +5,7 @@ import {
 } from "~/workspaces/context/workspace"
 import { FileTree } from "./file-explorer/file-tree"
 import { File, Directory } from "~/workspaces/domain/workspace"
-import { Rx, useRxSet, useRxValue } from "rx-solid"
+import { Rx, createRxSet, createRxValue } from "rx-solid"
 import { batch } from "solid-js"
 
 export declare namespace FileExplorer {
@@ -26,11 +26,11 @@ export declare namespace FileExplorer {
 export const State = Data.taggedEnum<FileExplorer.State>()
 export const stateRx = Rx.make<FileExplorer.State>(State.Idle())
 
-export const useExplorerState = () => useRxValue(stateRx)
-export const useExplorerDispatch = () => useRxSet(stateRx)
+export const useExplorerState = () => createRxValue(stateRx)
+export const useExplorerDispatch = () => createRxSet(stateRx)
 export const useCreate = () => {
   const handle = useWorkspaceHandle()
-  const create = useRxSet(handle.create)
+  const create = createRxSet(handle.create)
   const dispatch = useExplorerDispatch()
   return (parent: Directory, name: string, type: FileExplorer.InputType) => {
     batch(() => {
@@ -42,7 +42,7 @@ export const useCreate = () => {
 
 export const useRename = () => {
   const handle = useWorkspaceHandle()
-  const rename = useRxSet(handle.rename)
+  const rename = createRxSet(handle.rename)
   const dispatch = useExplorerDispatch()
   return (node: File | Directory, name: string) => {
     batch(() => {
@@ -53,7 +53,7 @@ export const useRename = () => {
 }
 export const useRemove = () => {
   const handle = useWorkspaceHandle()
-  const remove = useRxSet(handle.remove)
+  const remove = createRxSet(handle.remove)
   const dispatch = useExplorerDispatch()
   return (node: File | Directory) => {
     batch(() => {

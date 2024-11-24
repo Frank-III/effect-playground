@@ -1,5 +1,5 @@
 import * as Solid from "solid-js"
-import { useRx, useRxSet, useRxValue } from "rx-solid"
+import { createRx, createRxSet, createRxValue } from "rx-solid"
 import { RxDevTools } from "../rx/devtools"
 
 export const DevToolsContext = Solid.createContext<RxDevTools>(null as any)
@@ -11,9 +11,9 @@ export const useDevTools = () => {
   }
   return context
 }
-export const useSelectedSpan = useRx(useDevTools().selectedSpan)
+export const useSelectedSpan = createRx(useDevTools().selectedSpan)
 
-export const useSelectedSpanValue = useRxValue(useDevTools().selectedSpan)
-export const useSetSelectedSpan = useRxSet(useDevTools().selectedSpan)
+export const useSelectedSpanValue = createRxValue(useDevTools().selectedSpan)
+export const useSetSelectedSpan = createRxSet(useDevTools().selectedSpan)
 
-export const useSelectedSpanIndex = useRxValue(useDevTools().selectedSpanIndex)
+export const useSelectedSpanIndex = createRxValue(useDevTools().selectedSpanIndex)

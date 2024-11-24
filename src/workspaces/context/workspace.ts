@@ -1,6 +1,6 @@
 import * as Solid from "solid-js"
 import { RxWorkspaceHandle } from "../rx/workspace"
-import { useRxSet, useRxValue } from "rx-solid"
+import { createRxSet, createRxValue } from "rx-solid"
 
 export const WorkspaceContext = Solid.createContext<RxWorkspaceHandle>(
   null as any
@@ -16,9 +16,9 @@ export const useWorkspaceHandle = () => {
 
 export const useWorkspaceRx = () => useWorkspaceHandle().workspace
 
-export const useWorkspace = () => useRxValue(useWorkspaceRx())
-export const useSetWorkspace = () => useRxSet(useWorkspaceRx())
+export const useWorkspace = () => createRxValue(useWorkspaceRx())
+export const useSetWorkspace = () => createRxSet(useWorkspaceRx())
 
-export const useWorkspaceShells = () => useRxValue(useWorkspaceRx(), (workspace) => workspace.shells)
+export const useWorkspaceShells = () => createRxValue(useWorkspaceRx(), (workspace) => workspace.shells)
 
-export const useWorkspaceTree = () => useRxValue(useWorkspaceRx(), (workspace) => workspace.tree)
+export const useWorkspaceTree = () => createRxValue(useWorkspaceRx(), (workspace) => workspace.tree)

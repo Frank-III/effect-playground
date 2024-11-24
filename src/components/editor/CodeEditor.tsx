@@ -5,7 +5,7 @@ import {
   ResizableHandle,
   ResizablePanel
 } from "~/components/ui/resizable"
-import { useRxSet } from "rx-solid"
+import { createRxSet } from "rx-solid"
 import { LoadingSpinner } from "~/components/ui/loading-spinner"
 import { Workspace } from "~/workspaces/domain/workspace"
 import {
@@ -67,7 +67,7 @@ export const CodeEditorSuspended: Component<{
   //   }
   // );
 
-  const setSize = useRxSet(handle.terminalSize)
+  const setSize = createRxSet(handle.terminalSize)
   const onResize = () => setSize()
 
   return (
@@ -146,7 +146,7 @@ export const CodeEditorSuspended: Component<{
 function WorkspaceShells() {
   const handle = useWorkspaceHandle()
   const shells = useWorkspaceShells()
-  const setSize = useRxSet(handle.terminalSize)
+  const setSize = createRxSet(handle.terminalSize)
   const onResize = function (..._: any) {
     setSize()
   }

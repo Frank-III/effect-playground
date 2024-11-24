@@ -1,6 +1,6 @@
 import { CodeEditor } from "~/components/editor/CodeEditor"
 import { LoadingSpinner } from "~/components/ui/loading-spinner"
-import { useRxSuspense, useRxValue } from "rx-solid"
+import { createRxSuspense, createRxValue } from "rx-solid"
 import { Show, Suspense } from "solid-js"
 import { importRx } from "~/lib/playground/rx"
 
@@ -13,17 +13,21 @@ export default function Playground() {
 }
 
 function PlaygroundLoader() {
-  const workspaceSignal = useRxSuspense(importRx)
+  const workspaceSignal = createRxSuspense(importRx)
 
   return (
     <main class="relative flex flex-col h-full w-full z-0">
       <Show
         when={(() => {
           const workspace = workspaceSignal()
-          return workspace && workspace._tag === "Success" && workspace
+          return workspace && workspace._tag === "Success" && workspace.value
+        })()}
+        fallback={(() => {
+          console.log("fallback")
+          return <LoadingSpinner message="Loading playground..." />
         })()}
       >
-        {(workspace) => <CodeEditor workspace={workspace().value} />}
+        {(workspace) => <CodeEditor workspace={workspace()} />}
       </Show>
     </main>
   )
